@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BlatoRH – Acelerador de Carga Masiva EC (Mockup)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --azul:#002774;
+      --azul-2:#0D224A;
+      --dorado:#B1A96E;
+      --oliva:#8FA15A;
+      --rojo:#F25A5A;
+      --blanco:#FFFFFF;
+    }
+    body{margin:0; background:var(--azul); color:var(--blanco); font-family:system-ui,-apple-system,Segoe UI,Roboto,Calibri,Arial,sans-serif}
+    .app{min-height:100vh; display:flex; flex-direction:column}
+    header{display:flex; align-items:center; gap:14px; padding:12px 18px; background:var(--azul-2); border-bottom:4px solid var(--dorado)}
+    header img{height:68px}
+    header h1{font:700 22px 'Exo',Arial; margin:0}
+    .tag{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); border-radius:999px; padding:6px 10px; font:600 12px 'Exo'}
+    .topnav{display:flex; align-items:center; gap:10px; background:var(--azul-2); border-bottom:2px solid rgba(255,255,255,.15); padding:8px 12px}
+    .topnav a{color:var(--blanco); text-decoration:none; padding:8px 10px; border-radius:10px; font-weight:700}
+    .topnav a:hover{background:rgba(255,255,255,.15)}
+    main{flex:1; padding:20px}
+    .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+    .card{background:var(--azul-2); border:1px solid rgba(255,255,255,.15); border-radius:18px; padding:16px; box-shadow:0 6px 20px rgba(0,0,0,.35)}
+    .card h2{font:700 18px 'Exo',Arial; margin:0 0 8px; color:var(--dorado)}
+    .btn{border:none; padding:10px 14px; border-radius:12px; font-weight:800; cursor:pointer}
+    .btn.gold{background:var(--dorado); color:#0f1933}
+    .btn.warn{background:var(--rojo); color:#fff}
+    table{width:100%; border-collapse:separate; border-spacing:0; border-radius:12px}
+    thead th{background:var(--dorado); color:var(--azul-2); padding:10px; text-align:left}
+    tbody td{padding:10px; border-bottom:1px solid rgba(255,255,255,.12)}
+    .pill.err{background:#ffd0d0; color:#6b0f0f; padding:4px 8px; border-radius:8px; font-weight:700}
+    .summary-box{margin-top:18px; padding:16px; border-radius:14px; background:rgba(255,255,255,.1); font-size:20px; font-weight:800; text-align:center}
+    .summary-link{display:block; margin-top:8px; font-size:16px; font-weight:600; color:var(--dorado); cursor:pointer; text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <img src="./blatorh.png" alt="BlatoRH Logo" />
+      <h1>BlatoRH – Acelerador de Carga Masiva EC</h1>
+      <span class="tag">Prototipo – SAP BTP</span>
+    </header>
+
+    <nav class="topnav">
+      <a class="active" href="#dashboard">📊 Dashboard</a>
+      <a href="#validacion">🧪 Validación</a>
+      <a href="#resultados">✅ Resultados</a>
+    </nav>
+
+    <main>
+      <section id="dashboard" class="grid">
+        <div class="card" style="grid-column:1/13">
+          <h2>Validación previa</h2>
+          <table id="tblErr">
+            <thead><tr><th>N° Empleado</th><th>Campo</th><th>Valor</th><th>Regla</th><th>Estado</th></tr></thead>
+            <tbody id="tbodyErr"></tbody>
+          </table>
+        </div>
+
+        <div class="card" style="grid-column:1/13">
+          <h2>Resultados e informe</h2>
+          <div class="row mt12">
+            <button class="btn gold" onclick="downloadInforme()">📥 Descargar Informe</button>
+            <button class="btn warn" onclick="resetAll()">↺ Reiniciar</button>
+          </div>
+          <div id="summary" class="summary-box">
+            Ejecución pendiente.
+          </div>
+          <div id="panelOK" class="hidden"></div>
+          <div id="panelERR" class="hidden"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script>
+  const els = {
+    tbodyErr: document.getElementById('tbodyErr'),
+    summary: document.getElementById('summary'),
+    panelOK: document.getElementById('panelOK'),
+    panelERR: document.getElementById('panelERR')
+  };
+
+  let rows = [
+    {empId:"E001", email:"john@corp.com", startDate:"2025-09-01", company:"BLT_AR", jobCode:"DEV-1"},
+    {empId:"E002", email:"maria@@corp.com", startDate:"2025/09/01", company:"", jobCode:"DEV-2"},
+    {empId:"E003", email:"raul@corp.com", startDate:"2025-09-15", company:"ACE_USA", jobCode:"ADMIN-1"}
+  ];
+
+  function runValidation(){
+    els.tbodyErr.innerHTML = '';
+    rows.forEach((r,idx)=>{
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email)) addError(r.empId,'email',r.email,'Formato de email',idx);
+      if(!/^\d{4}-\d{2}-\d{2}$/.test(r.startDate)) addError(r.empId,'startDate',r.startDate,'Fecha YYYY-MM-DD',idx);
+      if(!r.company) addError(r.empId,'company',r.company,'Obligatorio',idx);
+    });
+    renderSummary();
+  }
+
+  function addError(empId,campo,val,regla,idx){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${empId}</td><td>${campo}</td><td>${val}</td><td>${regla}</td><td><span class='pill err'>Error</span> <a href='#' onclick='alert("Ir a línea ${idx+2} del archivo");return false;'>Ver línea</a></td>`;
+    els.tbodyErr.appendChild(tr);
+  }
+
+  function renderSummary(){
+    const ok = 2; const err = 3; // demo counts
+    els.summary.innerHTML = `<div><span style='color:#8FA15A;font-size:28px;'>${ok} Registros OK</span></div>`+
+      `<div class='summary-link' onclick=showResult('ok')>Ver OK</div>`+
+      `<div style='margin-top:14px;'><span style='color:#F25A5A;font-size:28px;'>${err} Registros con Error</span></div>`+
+      `<div class='summary-link' onclick=showResult('err')>Ver Errores</div>`;
+  }
+
+  function showResult(type){
+    els.panelOK.classList.add('hidden'); els.panelERR.classList.add('hidden');
+    if(type==='ok'){
+      els.panelOK.innerHTML = '<div>Listado de registros OK (dummy)</div>';
+      els.panelOK.classList.remove('hidden');
+    } else {
+      els.panelERR.innerHTML = '<div>Listado de errores detallados (dummy)</div>';
+      els.panelERR.classList.remove('hidden');
+    }
+  }
+
+  function downloadInforme(){ alert('Descargando informe... (demo)'); }
+  function resetAll(){ location.reload(); }
+
+  runValidation();
+</script>
+</body>
+</html>
