@@ -14,28 +14,72 @@
       --rojo:#F25A5A;
       --blanco:#FFFFFF;
     }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{margin:0; background:var(--azul); color:var(--blanco); font-family:system-ui,-apple-system,Segoe UI,Roboto,Calibri,Arial,sans-serif}
+
     .app{min-height:100vh; display:flex; flex-direction:column}
     header{display:flex; align-items:center; gap:14px; padding:12px 18px; background:var(--azul-2); border-bottom:4px solid var(--dorado)}
-    header img{height:68px}
+    header img{height:68px; width:auto}
     header h1{font:700 22px 'Exo',Arial; margin:0}
     .tag{background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); border-radius:999px; padding:6px 10px; font:600 12px 'Exo'}
+
     .topnav{display:flex; align-items:center; gap:10px; background:var(--azul-2); border-bottom:2px solid rgba(255,255,255,.15); padding:8px 12px}
+    .topnav .spacer{flex:1}
     .topnav a{color:var(--blanco); text-decoration:none; padding:8px 10px; border-radius:10px; font-weight:700}
     .topnav a:hover{background:rgba(255,255,255,.15)}
+    .topnav a.active{background:rgba(255,255,255,.25)}
+    .env{display:flex; gap:8px; margin-left:auto}
+
     main{flex:1; padding:20px}
     .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+
     .card{background:var(--azul-2); border:1px solid rgba(255,255,255,.15); border-radius:18px; padding:16px; box-shadow:0 6px 20px rgba(0,0,0,.35)}
     .card h2{font:700 18px 'Exo',Arial; margin:0 0 8px; color:var(--dorado)}
-    .btn{border:none; padding:10px 14px; border-radius:12px; font-weight:800; cursor:pointer}
-    .btn.gold{background:var(--dorado); color:#0f1933}
+    .muted{color:#d7dff6; opacity:.9; font-size:12px}
+
+    .stepper{display:flex; gap:12px; flex-wrap:wrap}
+    .step{display:flex; align-items:center; gap:10px; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08)}
+    .step .idx{height:26px; width:26px; border-radius:999px; display:grid; place-items:center; font-weight:800; color:var(--azul-2); background:var(--dorado)}
+    .step.done{background:rgba(146,154,74,.25)}
+    .step.active{box-shadow:0 0 0 2px var(--dorado) inset}
+
+    .kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+    .kpi{padding:14px 16px; border-radius:16px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)}
+    .kpi .num{font:700 22px 'Exo',Arial}
+    .kpi small{color:#e7eaf7}
+
+    .drop{display:grid; place-items:center; text-align:center; border:2px dashed rgba(255,255,255,.45); border-radius:16px; padding:34px; background:rgba(255,255,255,.04)}
+    .drop.drag{background:rgba(255,255,255,.12); border-color:var(--dorado)}
+    .drop input{display:none}
+
+    .btn{appearance:none; border:none; padding:10px 14px; border-radius:12px; font-weight:800; cursor:pointer; transition:.2s; letter-spacing:.02em}
+    .btn.primary{background:var(--dorado); color:var(--azul-2)}
+    .btn.ghost{background:transparent; border:1px solid var(--dorado); color:var(--blanco)}
     .btn.warn{background:var(--rojo); color:#fff}
-    table{width:100%; border-collapse:separate; border-spacing:0; border-radius:12px}
-    thead th{background:var(--dorado); color:var(--azul-2); padding:10px; text-align:left}
+    .btn.success{background:var(--oliva); color:#0f1a2e}
+    .btn.gold{background:var(--dorado); color:#0f1933}
+
+    table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px}
+    thead th{background:var(--dorado); color:var(--azul-2); text-align:left; font-weight:800; padding:10px}
     tbody td{padding:10px; border-bottom:1px solid rgba(255,255,255,.12)}
-    .pill.err{background:#ffd0d0; color:#6b0f0f; padding:4px 8px; border-radius:8px; font-weight:700}
-    .summary-box{margin-top:18px; padding:16px; border-radius:14px; background:rgba(255,255,255,.1); font-size:20px; font-weight:800; text-align:center}
-    .summary-link{display:block; margin-top:8px; font-size:16px; font-weight:600; color:var(--dorado); cursor:pointer; text-decoration:underline}
+    tbody tr{background:rgba(255,255,255,.03)}
+    tbody tr:nth-child(2n){background:rgba(255,255,255,.07)}
+
+    .pill{display:inline-block; padding:4px 8px; border-radius:999px; font-weight:700; font-size:12px}
+    .pill.ok{background:#cfecc6; color:#0b3d13}
+    .pill.err{background:#ffd0d0; color:#6b0f0f}
+
+    .resultSummary{margin-top:14px; padding:16px; border-radius:14px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.15)}
+    .resultSummary h3{margin:0 0 8px; font:700 18px 'Exo',Arial; color:#fff}
+    .bigLine{display:block; font:700 20px/1.4 'Exo',Arial; margin:6px 0}
+    .bigLine a{color:var(--dorado); text-decoration:underline; font-weight:700}
+
+    footer{margin-top:18px; display:flex; justify-content:space-between; align-items:center; font-size:12px; color:#d7dff6; padding:10px 0}
+    .hidden{display:none}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}
+    .highlight{outline:3px solid var(--dorado)}
   </style>
 </head>
 <body>
@@ -46,91 +90,302 @@
       <span class="tag">Prototipo – SAP BTP</span>
     </header>
 
+    <!-- NAV COMPLETO -->
     <nav class="topnav">
       <a class="active" href="#dashboard">📊 Dashboard</a>
+      <a href="#plantilla">📥 Plantilla</a>
+      <a href="#carga">⬆️ Carga</a>
+      <a href="#vista">👀 Vista previa</a>
       <a href="#validacion">🧪 Validación</a>
+      <a href="#orq">⚙️ Orquestación</a>
       <a href="#resultados">✅ Resultados</a>
+      <span class="spacer"></span>
+      <div class="env">
+        <button class="btn ghost" onclick="setEnv('TEST')">TEST</button>
+        <button class="btn ghost" onclick="setEnv('PROD')">PROD</button>
+      </div>
     </nav>
 
     <main>
       <section id="dashboard" class="grid">
         <div class="card" style="grid-column:1/13">
-          <h2>Validación previa</h2>
-          <table id="tblErr">
-            <thead><tr><th>N° Empleado</th><th>Campo</th><th>Valor</th><th>Regla</th><th>Estado</th></tr></thead>
-            <tbody id="tbodyErr"></tbody>
-          </table>
+          <div class="stepper">
+            <div class="step done"><div class="idx">1</div> Plantilla</div>
+            <div class="step active"><div class="idx">2</div> Carga</div>
+            <div class="step"><div class="idx">3</div> Validación</div>
+            <div class="step"><div class="idx">4</div> Orquestación</div>
+            <div class="step"><div class="idx">5</div> Ejecución</div>
+            <div class="step"><div class="idx">6</div> Informe</div>
+          </div>
         </div>
 
         <div class="card" style="grid-column:1/13">
+          <h2>KPIs rápidos</h2>
+          <div class="kpis mt8">
+            <div class="kpi"><div class="num" id="kpiTotal">0</div><small>Total de registros</small></div>
+            <div class="kpi"><div class="num" id="kpiValid">0</div><small>Válidos</small></div>
+            <div class="kpi"><div class="num" id="kpiErr">0</div><small>Con errores</small></div>
+            <div class="kpi"><div class="num" id="kpiAhorro">–</div><small>Ahorro estimado</small></div>
+          </div>
+        </div>
+
+        <!-- PLANTILLA -->
+        <div class="card" id="plantilla" style="grid-column:1/6">
+          <h2>Descargar plantilla única</h2>
+          <p class="muted">Un único archivo CSV/XLSX con columnas para Datos Personales, Empleo, Puesto, Compensación, etc.</p>
+          <div class="row mt8">
+            <button class="btn primary" onclick="downloadCSVTemplate()">⬇️ CSV</button>
+            <button class="btn gold" onclick="loadDemo(true)">✨ Generar DUMMY</button>
+          </div>
+        </div>
+
+        <!-- CARGA -->
+        <div class="card" id="carga" style="grid-column:6/13">
+          <h2>Cargar archivo</h2>
+          <label class="drop" id="drop">
+            <div>
+              <div style="font-weight:800">Arrastrá y soltá aquí tu CSV/XLSX</div>
+              <div class="muted">o</div>
+              <button class="btn ghost" onclick="document.getElementById('file').click()">Elegir archivo</button>
+              <input id="file" type="file" accept=".csv" />
+            </div>
+          </label>
+          <small class="muted">Se validará formato, dependencias y reglas de negocio antes de llamar a las APIs.</small>
+        </div>
+
+        <!-- VISTA PREVIA -->
+        <div class="card" id="vista" style="grid-column:1/13">
+          <h2>Vista previa (primeras 50 filas)</h2>
+          <div id="preview" class="muted">Aún no hay datos.</div>
+        </div>
+
+        <!-- VALIDACIÓN -->
+        <div class="card" id="validacion" style="grid-column:1/13">
+          <h2>Validación previa</h2>
+          <div class="row">
+            <button class="btn success" onclick="runValidation()">🧪 Validar</button>
+            <button class="btn ghost" onclick="exportErrores()">📤 Exportar errores CSV</button>
+          </div>
+          <div class="mt12">
+            <table id="tblErr" class="hidden">
+              <thead><tr><th>N° Empleado</th><th>Campo</th><th>Valor</th><th>Regla</th><th>Estado</th></tr></thead>
+              <tbody id="tbodyErr"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ORQUESTACIÓN -->
+        <div class="card" id="orq" style="grid-column:1/13">
+          <h2>Orquestación (simulación)</h2>
+          <div class="row">
+            <button class="btn primary" onclick="simulateOrchestration()">▶ Ejecutar simulación</button>
+            <button class="btn ghost" onclick="toggleTech()">Ver payloads</button>
+          </div>
+          <div class="timeline mt12" id="timeline"></div>
+          <pre id="tech" class="hidden" style="background:#071433;color:#e4ecff;padding:14px;border-radius:12px;overflow:auto;max-height:320px"></pre>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="card" id="resultados" style="grid-column:1/13">
           <h2>Resultados e informe</h2>
           <div class="row mt12">
-            <button class="btn gold" onclick="downloadInforme()">📥 Descargar Informe</button>
+            <button class="btn gold" onclick="downloadInforme()">📥 Descargar Informe (HTML)</button>
             <button class="btn warn" onclick="resetAll()">↺ Reiniciar</button>
           </div>
-          <div id="summary" class="summary-box">
-            Ejecución pendiente.
+          <div id="summary" class="resultSummary">
+            <h3>Último proceso</h3>
+            <span class="bigLine" id="sumOk">0 OK — <a href="#" onclick="showResult('ok');return false;">ver registros OK</a></span>
+            <span class="bigLine" id="sumErr">0 con error — <a href="#" onclick="showResult('err');return false;">ver registros con error</a></span>
+            <div class="muted">Secuencia: User → PerPerson → EmpEmployment → EmpJob → PerPersonal (simulación)</div>
           </div>
-          <div id="panelOK" class="hidden"></div>
-          <div id="panelERR" class="hidden"></div>
+          <div id="panelOK" class="hidden mt12"></div>
+          <div id="panelERR" class="hidden mt12"></div>
         </div>
+
+        <footer style="grid-column:1/13">
+          <div>Información Confidencial – Prohibida su distribución sin autorización</div>
+          <div>© BlatoRH Group</div>
+        </footer>
       </section>
     </main>
   </div>
 
 <script>
   const els = {
+    drop: document.getElementById('drop'),
+    file: document.getElementById('file'),
+    preview: document.getElementById('preview'),
+    tblErr: document.getElementById('tblErr'),
     tbodyErr: document.getElementById('tbodyErr'),
-    summary: document.getElementById('summary'),
+    kpiTotal: document.getElementById('kpiTotal'),
+    kpiValid: document.getElementById('kpiValid'),
+    kpiErr: document.getElementById('kpiErr'),
+    kpiAhorro: document.getElementById('kpiAhorro'),
+    timeline: document.getElementById('timeline'),
+    tech: document.getElementById('tech'),
+    sumOk: document.getElementById('sumOk'),
+    sumErr: document.getElementById('sumErr'),
     panelOK: document.getElementById('panelOK'),
-    panelERR: document.getElementById('panelERR')
+    panelERR: document.getElementById('panelERR'),
   };
 
-  let rows = [
-    {empId:"E001", email:"john@corp.com", startDate:"2025-09-01", company:"BLT_AR", jobCode:"DEV-1"},
-    {empId:"E002", email:"maria@@corp.com", startDate:"2025/09/01", company:"", jobCode:"DEV-2"},
-    {empId:"E003", email:"raul@corp.com", startDate:"2025-09-15", company:"ACE_USA", jobCode:"ADMIN-1"}
-  ];
+  let rows = [];
+  let lastRun = { ok:0, err:0, okRows:[], errRows:[] };
+
+  document.addEventListener('DOMContentLoaded', ()=> { loadDemo(true); runValidation(); });
+
+  // Drag & drop
+  ['dragenter','dragover'].forEach(evt=>{
+    els.drop?.addEventListener(evt, e=>{e.preventDefault(); els.drop.classList.add('drag')})
+  });
+  ['dragleave','drop'].forEach(evt=>{
+    els.drop?.addEventListener(evt, e=>{e.preventDefault(); els.drop.classList.remove('drag')})
+  });
+  els.drop?.addEventListener('drop', e=>{ const file = e.dataTransfer.files?.[0]; if(file) handleFile(file); });
+  els.file?.addEventListener('change', e=>{ const file = e.target.files?.[0]; if(file) handleFile(file); });
+
+  function handleFile(file){
+    const reader = new FileReader();
+    reader.onload = () => { const text = reader.result; parseCSV(text); renderPreview(); runValidation(); };
+    reader.readAsText(file, 'utf-8');
+  }
+
+  function parseCSV(text){
+    const lines = text.replace(/\r/g,'').split('\n').filter(Boolean);
+    const headers = lines.shift().split(',').map(s=>s.trim());
+    rows = lines.map(l=>{ const vals = l.split(','); const obj = {}; headers.forEach((h,i)=> obj[h]= (vals[i]||'').trim()); return obj; });
+    els.kpiTotal.textContent = rows.length; els.kpiAhorro.textContent = calcAhorro(rows.length);
+  }
+
+  function renderPreview(){
+    if(!rows.length){ els.preview.textContent = 'Aún no hay datos.'; return; }
+    const headers = Object.keys(rows[0]);
+    const table = document.createElement('table');
+    table.id = 'previewTable';
+    const thead = document.createElement('thead');
+    const trh = document.createElement('tr');
+    headers.forEach(h=>{const th=document.createElement('th'); th.textContent=h; trh.appendChild(th)});
+    thead.appendChild(trh); table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    rows.slice(0,50).forEach((r,idx)=>{
+      const tr=document.createElement('tr'); tr.id = 'row-'+(idx+1);
+      headers.forEach(h=>{const td=document.createElement('td'); td.textContent=r[h]||''; tr.appendChild(td)});
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    els.preview.innerHTML=''; els.preview.appendChild(table);
+  }
 
   function runValidation(){
-    els.tbodyErr.innerHTML = '';
+    if(!rows.length){alert('Cargá un CSV o generá DUMMY.'); return}
+    const errors = []; const oks = [];
     rows.forEach((r,idx)=>{
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email)) addError(r.empId,'email',r.email,'Formato de email',idx);
-      if(!/^\d{4}-\d{2}-\d{2}$/.test(r.startDate)) addError(r.empId,'startDate',r.startDate,'Fecha YYYY-MM-DD',idx);
-      if(!r.company) addError(r.empId,'company',r.company,'Obligatorio',idx);
+      let hasErr = false;
+      if(r.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email)) {errors.push({i:idx+1,empId:r.empId,campo:'email',val:r.email,regla:'Formato de email',estado:'ERR'}); hasErr=true;}
+      if(r.startDate && !/^\d{4}-\d{2}-\d{2}$/.test(r.startDate)) {errors.push({i:idx+1,empId:r.empId,campo:'startDate',val:r.startDate,regla:'Fecha YYYY-MM-DD',estado:'ERR'}); hasErr=true;}
+      if(!r.company) {errors.push({i:idx+1,empId:r.empId,campo:'company',val:'',regla:'Obligatorio',estado:'ERR'}); hasErr=true;}
+      if(!hasErr) oks.push({i:idx+1, ...r});
     });
-    renderSummary();
+    renderErrors(errors);
+    lastRun = { ok: oks.length, err: errors.length, okRows: oks, errRows: errors };
+    els.sumOk.innerHTML = `${lastRun.ok} OK — <a href=\"#\" onclick=\"showResult('ok');return false;\">ver registros OK</a>`;
+    els.sumErr.innerHTML = `${lastRun.err} con error — <a href=\"#\" onclick=\"showResult('err');return false;\">ver registros con error</a>`;
+    if(els.kpiValid) els.kpiValid.textContent = oks.length;
+    if(els.kpiErr) els.kpiErr.textContent = errors.length;
   }
 
-  function addError(empId,campo,val,regla,idx){
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${empId}</td><td>${campo}</td><td>${val}</td><td>${regla}</td><td><span class='pill err'>Error</span> <a href='#' onclick='alert("Ir a línea ${idx+2} del archivo");return false;'>Ver línea</a></td>`;
-    els.tbodyErr.appendChild(tr);
-  }
-
-  function renderSummary(){
-    const ok = 2; const err = 3; // demo counts
-    els.summary.innerHTML = `<div><span style='color:#8FA15A;font-size:28px;'>${ok} Registros OK</span></div>`+
-      `<div class='summary-link' onclick=showResult('ok')>Ver OK</div>`+
-      `<div style='margin-top:14px;'><span style='color:#F25A5A;font-size:28px;'>${err} Registros con Error</span></div>`+
-      `<div class='summary-link' onclick=showResult('err')>Ver Errores</div>`;
+  function renderErrors(list){
+    els.tbodyErr.innerHTML=''; els.tblErr.classList.remove('hidden');
+    if(!list.length){ els.tbodyErr.innerHTML = `<tr><td colspan=\"5\"><span class=\"pill ok\">Sin errores</span></td></tr>`; return; }
+    list.forEach(e=>{ const tr = document.createElement('tr'); tr.innerHTML = `<td>${e.empId||e.i}</td><td>${e.campo}</td><td>${e.val}</td><td>${e.regla}</td><td><span class=\"pill err\">Error</span> · <a href=\"#\" onclick=\"goToLine(${e.i});return false;\">ver línea</a></td>`; els.tbodyErr.appendChild(tr); });
   }
 
   function showResult(type){
     els.panelOK.classList.add('hidden'); els.panelERR.classList.add('hidden');
     if(type==='ok'){
-      els.panelOK.innerHTML = '<div>Listado de registros OK (dummy)</div>';
+      els.panelOK.innerHTML = buildOkTable(lastRun.okRows);
       els.panelOK.classList.remove('hidden');
-    } else {
-      els.panelERR.innerHTML = '<div>Listado de errores detallados (dummy)</div>';
+    }else{
+      els.panelERR.innerHTML = buildErrTable(lastRun.errRows);
       els.panelERR.classList.remove('hidden');
     }
+    document.getElementById('resultados')?.scrollIntoView({behavior:'smooth'});
   }
 
-  function downloadInforme(){ alert('Descargando informe... (demo)'); }
-  function resetAll(){ location.reload(); }
+  function buildOkTable(data){
+    if(!data.length) return '<div class="muted">No hay registros OK.</div>';
+    const headers = Object.keys(data[0]).filter(k=>!['i'].includes(k));
+    let html = '<table><thead><tr><th>Empleado</th>'+headers.map(h=>`<th>${h}</th>`).join('')+'</tr></thead><tbody>';
+    data.forEach(r=>{ html += `<tr><td>${r.empId||r.i}</td>`+headers.map(h=>`<td>${r[h]||''}</td>`).join('')+`</tr>`; });
+    html += '</tbody></table>'; return html;
+  }
+  function buildErrTable(data){
+    if(!data.length) return '<div class="muted">No hay errores.</div>';
+    let html = '<table><thead><tr><th>Empleado</th><th>Campo</th><th>Valor</th><th>Regla</th><th>Estado</th></tr></thead><tbody>';
+    data.forEach(e=>{ html += `<tr><td>${e.empId||e.i}</td><td>${e.campo}</td><td>${e.val}</td><td>${e.regla}</td><td><span class=\"pill err\">Error</span> · <a href=\"#\" onclick=\"goToLine(${e.i});return false;\">ver línea</a></td></tr>`; });
+    html += '</tbody></table>'; return html;
+  }
 
-  runValidation();
+  function exportErrores(){
+    const trs = [...els.tbodyErr.querySelectorAll('tr')]; if(!trs.length){alert('No hay errores para exportar.'); return}
+    const csv = ['empId,campo,valor,regla,estado']; trs.forEach(tr=>{ const tds=[...tr.children].map(td=>td.textContent.replace(/,/g,';')); csv.push(tds.join(',')) });
+    downloadText('errores_validacion.csv', csv.join('\n'))
+  }
+
+  function simulateOrchestration(){
+    els.timeline.innerHTML='';
+    const steps = [ {k:'User', ok:true}, {k:'PerPerson', ok:true}, {k:'EmpEmployment', ok:true}, {k:'EmpJob', ok:false, msg:'eventReason inválido'}, {k:'PerPersonal', ok:null} ];
+    let i=0; const id = setInterval(()=>{ if(i>=steps.length){clearInterval(id); buildPayloads(); return}
+      const s = steps[i++]; const div = document.createElement('div'); div.className = 't ' + (s.ok ? 'ok' : (s.ok===false?'err':''));
+      div.innerHTML = `<span class=\"dot\"></span><strong>${s.k}</strong> ${s.ok===true?'✔ OK': s.ok===false?'✖ Falla':'⏳ pendiente'} ${s.msg?(' – '+s.msg):''}`; els.timeline.appendChild(div);
+      if(s.ok===false){ const rb = document.createElement('div'); rb.className = 't err'; rb.innerHTML = `<span class=\"dot\"></span><strong>Rollback</strong> → delete User, delete PerPerson, delete EmpEmployment`; els.timeline.appendChild(rb);} }, 600);
+  }
+
+  function buildPayloads(){
+    if(!rows.length){ els.tech.textContent = 'No hay datos para armar payloads.'; return; }
+    const sample = rows.slice(0,2);
+    const payloads = sample.map(r=>({
+      User:{username:r.username, status:'Active', userId:r.empId||r.username?.slice(0,8)},
+      PerPerson:{personIdExternal:(r.empId||r.username)+'01', userId:r.empId||r.username?.slice(0,8)},
+      EmpEmployment:{startDate:r.startDate||'2025-09-01', personIdExternal:(r.empId||r.username)+'01', userId:r.empId||r.username?.slice(0,8)},
+      EmpJob:{jobCode:r.jobCode||'DEV-1', userId:r.empId||r.username?.slice(0,8), startDate:r.startDate||'2025-09-01', eventReason:r.eventReason||'HIRNEW', company:r.company||'BLT_AR'},
+      PerPersonal:{firstName:r.firstName||'Name', lastName:r.lastName||'Surname', personIdExternal:(r.empId||r.username)+'01'}
+    }));
+    els.tech.textContent = JSON.stringify(payloads, null, 2);
+    els.tech.classList.remove('hidden');
+  }
+
+  function toggleTech(){ if(els.tech.textContent.trim()==='') buildPayloads(); els.tech.classList.toggle('hidden'); }
+
+  function downloadCSVTemplate(){
+    const headers = ['empId,username,email,startDate,company,jobCode,eventReason,firstName,lastName'];
+    const sample = ['10000,mhoff,markus@empresa.com,2025-09-01,ACE_USA,ADMIN-1,HIRNEW,Markus,Hoff'];
+    const csv = headers.concat(sample).join('\n'); downloadText('plantilla_unica.csv', csv);
+  }
+
+  function downloadInforme(){ const html = document.documentElement.outerHTML; downloadText('informe_ejecucion.html', html); }
+
+  function downloadText(filename, content){ const blob = new Blob([content], {type:'text/plain;charset=utf-8'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = filename; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 1000); }
+
+  function loadDemo(showToast){
+    const csv = `empId,username,email,startDate,company,jobCode,eventReason,firstName,lastName\n`+
+      `10001,jdoe,john@corp.com,2025-09-01,BLT_AR,DEV-1,HIRNEW,John,Doe\n`+
+      `10002,mjane,maria@@corp.com,2025/09/01,BLT_AR,DEV-2,PROMO,Maria,Jane\n`+
+      `10003,rcuevas,raul@corp.com,2025-09-15,ACE_USA,ADMIN-1,HIRNEW,Raul,Cuevas`;
+    parseCSV(csv); renderPreview(); if(showToast) console.log('Dummy generado');
+  }
+
+  function setEnv(x){ alert('Entorno seleccionado: '+x + `\n(Placeholder: BTP Destination/.env)`); }
+  function resetAll(){ rows = []; renderPreview(); const kts=['kpiTotal','kpiValid','kpiErr']; kts.forEach(id=>{const el=document.getElementById(id); if(el) el.textContent='0'}); els.kpiAhorro.textContent='–'; const tl=els.timeline; if(tl) tl.innerHTML=''; els.sumOk.textContent='0 OK'; els.sumErr.textContent='0 con error'; els.tech.textContent=''; els.panelOK.innerHTML=''; els.panelERR.innerHTML=''; els.panelOK.classList.add('hidden'); els.panelERR.classList.add('hidden'); lastRun = {ok:0,err:0,okRows:[],errRows:[]}; }
+  function calcAhorro(n){ const minBase = n*6, minAcel = n*1.5; const diff = Math.max(minBase - minAcel,0); const hs = (diff/60).toFixed(1); return `${hs} h estimadas`; }
+
+  function goToLine(i){
+    const tr = document.getElementById('row-'+i);
+    if(!tr){ alert('No se encontró la línea '+i+' en la vista previa.'); return; }
+    tr.scrollIntoView({behavior:'smooth', block:'center'});
+    tr.classList.add('highlight');
+    setTimeout(()=> tr.classList.remove('highlight'), 1600);
+  }
 </script>
 </body>
 </html>
